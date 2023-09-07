@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QHBoxLayout, QSlider, QWidget, QLabel, QPushButton
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QHBoxLayout, QSlider, QWidget, QLabel, QPushButton
 
 
 # A helper class that implements a slider with given start and end float value; displays values

@@ -50,7 +50,7 @@ class PointCloudViewerGUI(QMainWindow):
         path_names_layout.setColumnMinimumWidth(1, 200)
         self.path_name = QLineEdit("data/point_clouds/bag_0/")
         self.pcd_name = QLineEdit("cloud_final")
-        self.version_name = QLineEdit("" )
+        self.version_name = QLineEdit("")
         path_names_layout.addWidget(QLabel("Path dir:"))
         path_names_layout.addWidget(self.path_name)
         path_names_layout.addWidget(QLabel("PCD name:"))

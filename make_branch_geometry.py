@@ -255,7 +255,7 @@ class MakeTreeGeometry:
             vec_rotate = vec_rotate / np.linalg.norm(vec_rotate)
             mat_rotate_bud = R.from_rotvec(self.bud_angle * vec_rotate)
             # Note - newer versions use as_matrix
-            mat_rot = mat_rotate_bud.as_dcm()
+            mat_rot = mat_rotate_bud.as_matrix() # original is as_dcm()
             vec[0:3] = mat_rot @ vec[0:3]
             vec_on_crv = mat @ vec
             vec_on_crv = vec_on_crv * (self.bud_length / np.linalg.norm(vec_on_crv))
@@ -269,24 +269,39 @@ class MakeTreeGeometry:
 if __name__ == '__main__':
     branch = MakeTreeGeometry("data")
 
-    branch.make_branch_segment([506.5, 156.0, 0.0], [457.49999996771703, 478.9999900052037, 0.0], [521.5, 318.0, 0.0 ], radius_start=10.5, radius_end=8.25,
-                               start_is_junction=True, end_is_bud=False)
-    branch.write_mesh("data/jos.obj")
+    # branch.make_branch_segment([506.5, 156.0, 0.0], [457.49999996771703, 478.9999900052037, 0.0], [521.5, 318.0, 0.0 ], radius_start=10.5, radius_end=8.25,
+    #                            start_is_junction=True, end_is_bud=False)
+    # branch.write_mesh("data/jos.obj")
 
-    branch.make_branch_segment([-0.5, 0.0, 0.0], [0.0, 0.1, 0.05], [0.5, 0.0, 0.0], radius_start=0.5, radius_end=0.25,
-                               start_is_junction=True, end_is_bud=False)
-    branch.write_mesh("data/cyl.obj")
+    # branch.make_branch_segment([-0.5, 0.0, 0.0], [0.0, 0.1, 0.05], [0.5, 0.0, 0.0], radius_start=0.5, radius_end=0.25,
+    #                            start_is_junction=True, end_is_bud=False)
+    # branch.write_mesh("data/cyl.obj")
 
-    branch.set_dims(n_along=30, n_radial=32)
-    branch.make_branch_segment([-0.5, 0.0, 0.0], [0.0, 0.1, 0.05], [0.5, 0.0, 0.0], radius_start=0.1, radius_end=0.075,
-                               start_is_junction=False, end_is_bud=True)
-    branch.write_mesh("data/cyl_bud.obj")
+    # branch.set_dims(n_along=30, n_radial=32)
+    # branch.make_branch_segment([-0.5, 0.0, 0.0], [0.0, 0.1, 0.05], [0.5, 0.0, 0.0], radius_start=0.1, radius_end=0.075,
+    #                            start_is_junction=False, end_is_bud=True)
+    # branch.write_mesh("data/cyl_bud.obj")
 
     bud_loc = branch.place_buds(((0.2, 0), (0.3, np.pi/4), (0.4, 3.0 * np.pi/4)))
+    # bud = MakeTreeGeometry("data")
+    # bud.start_bud = 0.2
+    # for i, b in enumerate(bud_loc):
+    #     bud.make_branch_segment(b[0], b[1], b[2], radius_start=0.025, radius_end=0.03, start_is_junction=False, end_is_bud=True)
+    #     bud.write_mesh(f"data/bud_{i}.obj")
+
+
+    # Want to combine a branch and a buds together
+    branch.make_branch_segment([506.5, 156.0, 0.0], [457.49999996771703, 478.9999900052037, 0.0], [521.5, 318.0, 0.0 ], radius_start=10.5, radius_end=8.25,
+                               start_is_junction=True, end_is_bud=True)
     bud = MakeTreeGeometry("data")
     bud.start_bud = 0.2
     for i, b in enumerate(bud_loc):
-        bud.make_branch_segment(b[0], b[1], b[2], radius_start=0.025, radius_end=0.03, start_is_junction=False, end_is_bud=True)
-        bud.write_mesh(f"data/bud_{i}.obj")
+        bud.make_branch_segment(b[0], b[1], b[2], radius_start = 0.025, radius_end=0.03, start_is_junction=False, end_is_bud=True)
+    
+    bud.write_mesh("testBranch.obj")
+
+
+    
+
 
 
